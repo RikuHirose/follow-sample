@@ -12,9 +12,27 @@
     @foreach($users as $user)
     <tr>
       <th scope="row">{{ $user->name }}</th>
+      <?php
+
+      if($user->followers->isEmpty()) {
+        $defaultFollowed = false;
+
+      } else {
+
+        foreach ($user->followers as $key => $follower) {
+            if($authUser->id == $follower->id) {
+                $defaultFollowed = true;
+                break;
+            }
+        }
+
+        }
+      ?>
       <td>
           <follow
-          :user="{{json_encode($user)}}"
+          :follow-user="{{json_encode($user)}}"
+          :auth-user="{{json_encode($authUser)}}"
+          :default-followed="{{json_encode($defaultFollowed)}}"
           ></follow>
       </td>
     </tr>

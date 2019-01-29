@@ -7,26 +7,33 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['followUser', 'authUser', 'defaultFollowed'],
         data() {
             return {
                 followed: false
             }
         },
+        created() {
+            this.followed = this.defaultFollowed
+        },
         methods: {
             postFollow(){
-                let url = `/api/users/${this.user.id}/follow`
+                let url = `/api/users/${this.followUser.id}/follow`
 
-                axios.post(url)
+                axios.post(url,{
+                    authUser: this.authUser
+                })
                     .then(res => {
                         this.followed = true
                     })
                     .catch(err => {})
             },
             postUnFollow(){
-                let url = `/api/users/${this.user.id}/unfollow`
+                let url = `/api/users/${this.followUser.id}/unfollow`
 
-                axios.post(url)
+                axios.post(url,{
+                    authUser: this.authUser
+                })
                     .then(res => {
                         this.followed = false
                     })

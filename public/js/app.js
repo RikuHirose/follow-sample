@@ -1804,26 +1804,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
+  props: ['followUser', 'authUser', 'defaultFollowed'],
   data: function data() {
     return {
       followed: false
     };
   },
+  created: function created() {
+    this.followed = this.defaultFollowed;
+  },
   methods: {
     postFollow: function postFollow() {
       var _this = this;
 
-      var url = "/api/users/".concat(this.user.id, "/follow");
-      axios.post(url).then(function (res) {
+      var url = "/api/users/".concat(this.followUser.id, "/follow");
+      axios.post(url, {
+        authUser: this.authUser
+      }).then(function (res) {
         _this.followed = true;
       }).catch(function (err) {});
     },
     postUnFollow: function postUnFollow() {
       var _this2 = this;
 
-      var url = "/api/users/".concat(this.user.id, "/unfollow");
-      axios.post(url).then(function (res) {
+      var url = "/api/users/".concat(this.followUser.id, "/unfollow");
+      axios.post(url, {
+        authUser: this.authUser
+      }).then(function (res) {
         _this2.followed = false;
       }).catch(function (err) {});
     }

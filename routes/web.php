@@ -18,3 +18,5 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/users/{user}/follow', 'UserController@showFollow')->name('show.follow');
+Route::get('/users/{user}/follower', 'UserController@showFollower')->name('show.follower');

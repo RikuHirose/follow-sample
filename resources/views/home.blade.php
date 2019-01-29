@@ -18,11 +18,12 @@
         $defaultFollowed = false;
 
       } else {
-
         foreach ($user->followers as $key => $follower) {
             if($authUser->id == $follower->id) {
                 $defaultFollowed = true;
                 break;
+            } else {
+              $defaultFollowed = false;
             }
         }
 
